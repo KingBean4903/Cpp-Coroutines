@@ -27,7 +27,7 @@ the use of coroutines.
 ![Generator code!](/assets/old_generator.png "Old Generator Code")
 
 
-
+![Generator code!](/assets/old_gen_terminal.png "Old Generator Code")
 
 From the above code we can observe that
 the oldSchoolGenerator() function returns all values.
@@ -37,7 +37,7 @@ lazily; that is a new number on every request.
 ##Appyling Coroutines to our generator code
 ![Coroutine Generator code!](/assets/keepGen_2.png "Coroutine Generator Code")
 
-
+In our above code we used co_yield
 
 ##How to become a Coroutine
 C++20 introduces keywords that assist us 

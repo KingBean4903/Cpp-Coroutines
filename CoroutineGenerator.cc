@@ -8,21 +8,19 @@ struct Generator {
 	using handle_type = std::coroutine_handle<promise_type>;
 	handle_type coro;
 
-	Generator(handle_type h) coro(h)  {}
+	Generator(handle_type h) : coro(h)  {}
 	~Generator() {
-		if (coro) {
-			coro.destroy()
-		}
+		if (coro) {coro.destroy(); }
 	}
 
-	Generator(Generator& const) = delete;
-	Generator& operator=(Generator& const) = delete;
+	Generator(const Generator& ) = delete;
+	Generator& operator=(const Generator& ) = delete;
 
-	Generator(Generator&& const oth) : coro(oth.coro) {
+	Generator(Generator&&  oth) : coro(oth.coro) {
 			oth.coro = nullptr;
 	}
 
-	Generator& operator=(Generator&& const oth) noexcept {
+	Generator& operator=(Generator&&  oth) noexcept {
 		coro = oth.coro;
 		oth.coro = nullptr;
 		return *this;
@@ -46,7 +44,7 @@ struct Generator {
 			return std::suspend_always {};
 		}
 		
-		auto final_suspend() {
+		auto final_suspend() noexcept {
 			return std::suspend_always {};
 		}
 
@@ -60,7 +58,7 @@ struct Generator {
 		
 		auto yield_value(const T value) {
 			current_value = value;
-			return std::suspend_always;
+			return std::suspend_always{};
 		}
 
 		void unhandled_exception() {
