@@ -5,6 +5,10 @@ template<typename T>
 struct Generator {
 	
 	struct promise_type;
+	/* 
+		Our coroutine handle, used by the client to pause,
+		resume or destroy it
+		*/
 	using handle_type = std::coroutine_handle<promise_type>;
 	handle_type coro;
 
@@ -27,10 +31,12 @@ struct Generator {
 	}
 	
 	T getValue() {
+		// using the handler to return a value
 		return coro.promise().current_value;
 	}
 
 	bool next() {
+		// using the handler to resume the coroutine
 		coro.resume();
 		return not coro.done();
 	}
@@ -41,6 +47,8 @@ struct Generator {
 		~promise_type()  = default;
 
 		auto initial_suspend() {
+			// std::suspend_always - our coroutine
+			// is suspended on initialization
 			return std::suspend_always {};
 		}
 		
@@ -56,6 +64,8 @@ struct Generator {
 			return std::suspend_never{};
 		}
 		
+		// returns an awaitable that we can pause
+		// and resume
 		auto yield_value(const T value) {
 			current_value = value;
 			return std::suspend_always{};
@@ -73,6 +83,8 @@ Generator<int> getNext(int start = 0, int step = 1)
 {
 	auto value = start;
 	while(true) {
+		// using co_yield here
+		// transforms our function to a coroutine
 		co_yield value;
 		value += step;
 	}
@@ -82,13 +94,17 @@ int main() {
 	
 	std::cout << '\n';
 	std::cout << "getNext()";
+
 	auto gen = getNext();
 
 	for (int i = 0;  i < 10; ++i)
 	{
+		// resumes our object from its
+		// initial suspended state
 		gen.next();
 		std::cout << " " << gen.getValue(); 
 	}
+
 	
 	auto gen2 = getNext(100. -10);
 	std::cout << "\n";
