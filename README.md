@@ -2,6 +2,8 @@
 Having worked with Kotlin and Go, I’ve seen how coroutines were introduced early in their language specifications. In contrast, C++ is older and arguably more mature than these newer languages, which have coroutines built-in or supported through DSLs like KTX in Kotlin.
 
 But worry not, fellow C++ die-hards — with C++20, we finally got our gate pass to the coroutines party.
+## NB 
+This tutorial is divided into two parts. Part 1 introduces the key terminology and foundational concepts. In Part 2, we’ll explore detailed examples to apply what we've learned.
 
 ## What are coroutines
 The term coroutine was first introduced in the 1960s by Melvin Conway.
@@ -71,10 +73,22 @@ start it again(resume) or stop it completely(destory).
 ![Coroutine handle !](/assets/coro_handle.png "Coroutine handle")
 
 ### The Coroutine frame
-Holds the data of the coroutine on the heap
+It stores the coroutine data on the heap.
 
 ### An Awaitable
+In a coroutine’s promise object, the functions yield_value, initial_suspend, and final_suspend all return something awaitable — meaning they control when and how the coroutine pauses or resumes.
 
+C++20 defines two basic awaitables
+	1. std::suspend_always
+	2. std::suspend_never
+
+The awaitables std::suspend_always and std::suspend_never are the
+basic building blocks used int functions like initial_suspend and 
+final_suspend.
+
+Theses two functions are automatically called during a coroutine's
+lifecycle - initial_suspend runs at the very beginning and final_suspend
+runs at the very end of the coroutine's execution.
 
 
 
