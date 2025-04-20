@@ -1,24 +1,14 @@
-# C++ Is late to<F5> the Coroutine party
-Having worked on Kotlin and Go, coroutines were
-early addons to their language specifications,
-but we can argue that C++ is older and wiser
-than the younger new languages who have coroutines
-baked into their spec or in some form of DSL like
-ktx for Kotlin.
-But, worry not C++ die hard,  C++20 got us a gate pass to the 
-coroutines party.
+# C++ Joins the Coroutine Party: What You Need to Know About C++20 Coroutines
+Having worked with Kotlin and Go, I’ve seen how coroutines were introduced early in their language specifications. In contrast, C++ is older and arguably more mature than these newer languages, which have coroutines built-in or supported through DSLs like KTX in Kotlin.
+
+But worry not, fellow C++ die-hards — with C++20, we finally got our gate pass to the coroutines party.
 
 ## What are coroutines
-The term coroutine was coined back in the 60s by
-Melvin Conway.
+The term coroutine was first introduced in the 1960s by Melvin Conway.
 
-Coroutines are functions that can suspend and resume
-their execution while keeping their state.
+Coroutines are special functions that can pause (suspend) and later continue (resume) their execution, all while preserving their state.
 
-In a normal function call you only call a function
-and return from it but in a coroutine you can 
-suspend and resume it and destroy a suspended 
-coroutine.
+In a regular function, you simply call it and wait for it to return. But with a coroutine, you have more control — you can suspend it partway through, resume it later, or even destroy it while it's suspended.
 
 ## Example: Generator function
 Time for some code; 
@@ -42,16 +32,22 @@ In our above code we used co_yield
 ## How to become a Coroutine
 C++20 introduces keywords that assist us 
 in interacting with coroutines
-1. co_yield 
-2. co_await
-3. co_return
+
+1. co_yield - supports generator functions.
+   The generator function generates a new value
+   everytime you call it.
+2. co_return - used by a coroutine as its return statement
+3. co_await expression - makes it possible to suspend
+   and resume the execution of the expression.
 
 A function becomes a coroutine if uses
-the above keywords.
+any of the above keywords.
 
-Future<int> fetchFuture() {
-	co_retun 40;
-}
+## Restrictions
+1. Coroutines cannot have return statements.
+2. Functions with variadic arguments, constexpr
+   consteval functions, constructors and destructors
+   and the main function cannot be coroutines.
 
 ## Components of a Coroutine
 In C++, a coroutine consists of 
@@ -62,12 +58,20 @@ In C++, a coroutine consists of
 1. An awaitable 
 
 ### The Promise Object
-Specified with the promise_type inside
-the return type of the coroutine.
+Specified with the promise_type name inside
+the return type of the coroutine(Wrapper type).
+
+Here is it's interface
+![Promise object !](/assets/promise_type.png "promise_type")
 
 ### The Coroutine Handle
+A coroutine handle is like a remote control for a coroutine.
+It doesn't own the coroutine itself, buti it lets you
+start it again(resume) or stop it completely(destory).
+![Coroutine handle !](/assets/coro_handle.png "Coroutine handle")
 
 ### The Coroutine frame
+Holds the data of the coroutine on the heap
 
 ### An Awaitable
 
