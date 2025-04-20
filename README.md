@@ -30,14 +30,12 @@ the use of coroutines.
 
 
 From the above code we can observe that
-the generator() function returns all values.
+the oldSchoolGenerator() function returns all values.
 What if we wanted to generate the numbers
 lazily; that is a new number on every request.
 
-##Appyling Coroutines to Generator
-
-fROM THE 
-
+##Appyling Coroutines to our generator code
+![Coroutine Generator code!](/assets/keepGen_2.png "Coroutine Generator Code")
 
 
 
