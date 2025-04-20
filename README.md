@@ -1,4 +1,4 @@
-#C++ Is late to<F5> the Coroutine party
+# C++ Is late to<F5> the Coroutine party
 Having worked on Kotlin and Go, coroutines were
 early addons to their language specifications,
 but we can argue that C++ is older and wiser
@@ -8,7 +8,7 @@ ktx for Kotlin.
 But, worry not C++ die hard,  C++20 got us a gate pass to the 
 coroutines party.
 
-##What are coroutines
+## What are coroutines
 The term coroutine was coined back in the 60s by
 Melvin Conway.
 
@@ -20,7 +20,7 @@ and return from it but in a coroutine you can
 suspend and resume it and destroy a suspended 
 coroutine.
 
-##Example: Generator function
+## Example: Generator function
 Time for some code; 
 Here is a sample generator function without
 the use of coroutines.
@@ -33,13 +33,13 @@ From the above code we can observe that
 the oldSchoolGenerator() function returns all values.
 What if we wanted to generate the numbers
 lazily; that is a new number on every request.
-
-##Appyling Coroutines to our generator code
+ 
+## A coroutine generator function
 ![Coroutine Generator code!](/assets/keepGen_2.png "Coroutine Generator Code")
 
 In our above code we used co_yield
 
-##How to become a Coroutine
+## How to become a Coroutine
 C++20 introduces keywords that assist us 
 in interacting with coroutines
 1. co_yield 
@@ -53,7 +53,7 @@ Future<int> fetchFuture() {
 	co_retun 40;
 }
 
-##Components of a Coroutine
+## Components of a Coroutine
 In C++, a coroutine consists of 
 
 1. promise object 
@@ -61,15 +61,15 @@ In C++, a coroutine consists of
 1. coroutine frame
 1. An awaitable 
 
-###The Promise Object
+### The Promise Object
 Specified with the promise_type inside
 the return type of the coroutine.
 
-###The Coroutine Handle
+### The Coroutine Handle
 
-###The Coroutine frame
+### The Coroutine frame
 
-###An Awaitable
+### An Awaitable
 
 
 
